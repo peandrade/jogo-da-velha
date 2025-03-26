@@ -1,0 +1,43 @@
+name: Sync develop after main merge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-or-sync-develop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Verificar se a branch develop existe
+        id: check_develop
+        run: |
+          if git ls-remote --exit-code --heads origin develop; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Criar develop a partir da main se não existir
+        if: steps.check_develop.outputs.exists == 'false'
+        run: |
+          git switch -c develop
+          git push origin develop
+
+      - name: Sincronizar develop com main se já existir
+        if: steps.check_develop.outputs.exists == 'true'
+        run: |
+          git switch develop
+          git pull origin develop
+          git merge origin/main
+          git push origin develop
