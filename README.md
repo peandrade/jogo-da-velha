@@ -11,23 +11,26 @@ Um simples jogo da velha feito com **HTML, CSS e JavaScript puro**, sem bibliote
 
 ## 🧪 Tecnologias usadas
 
-- HTML5  
-- CSS3  
+- HTML5
+- CSS3
 - JavaScript (ES6+)
 
 ## 🛠️ Para rodar localmente
 
 1. Clone o repositório:
+
 ```bash
 git clone https://github.com/seu-usuario/jogo-da-velha.git
 ```
 
 2. Acesse o diretório:
+
 ```bash
 cd jogo-da-velha
 ```
 
 3. Abra o arquivo `index.html` no navegador:
+
 ```bash
 start index.html      # Windows
 open index.html       # macOS
